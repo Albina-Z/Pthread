@@ -3,8 +3,6 @@
 #include "threads.h"
 using namespace std;
 
-// Считывает файл, путь к которому передан через args->file, считает сумму каждого числа в файле
-// и сохраняет эту сумму в args->file
 void* getSumFromFile(void* args) {
     int lineSum;
     ifstream infile;
@@ -45,12 +43,10 @@ int getSumUsingThreads(int fileCount) {
     pthread_t threads[fileCount];
     auto* arguments = new ThreadArguments[fileCount];
     int sum = 0;
-    // Создаем потоки и запускаем
     for (int i = 0; i < fileCount; i++) {
         arguments[i].file = "../files/" + to_string(i + 1) + ".txt";
         pthread_create(&threads[i], NULL, getSumFromFile, &arguments[i]);
     }
-    // Соединяем потоки и ждем выполнение каждого
     for (int i = 0; i < fileCount; i++) {
         pthread_join(threads[i], NULL);
         sum = sum + arguments[i].sum;
