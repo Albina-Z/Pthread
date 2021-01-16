@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ctime>
+#include <pthread.h>
 #include "threads.h"
 using namespace std;
 
